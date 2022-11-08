@@ -1,15 +1,15 @@
 package baseball;
 
-import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
+import camp.nextstep.edu.missionutils.Console;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Application {
     private static List<Integer> computer = new ArrayList<>();
     static int strikeCount = 0;
     static int ballCount = 0;
+
     public static void main(String[] args) {
 
         System.out.println("숫자 야구 게임을 시작합니다.");
@@ -29,15 +29,11 @@ public class Application {
         } while (replay(Console.readLine()));
         System.out.println("게임 종료");
     }
+
     private static void checkValid(List<Integer> input) {
-        if (input.size() != 3){
+        if (input.size() != 3) {
             throw new IllegalArgumentException("not valid data");
         }
-    }
-
-    private static boolean replay(String readLine) {
-        if (readLine.equals("1")) return true;
-        return false;
     }
 
     private static String printCount() {
@@ -50,29 +46,11 @@ public class Application {
         return ballCount + "볼 " + strikeCount + "스트라이크";
     }
 
-    public static List<Integer> valueToList(int value){
-        List<Integer> list = new ArrayList<>();
-
-        while (value / 10 != 0) {
-            list.add(0, value % 10);
-            value /= 10;
-        }
-        list.add(0, value % 10);
-        return list;
-    }
-    private static int ball(List<Integer> computer, List<Integer> input) {
-        int ball = 0;
-        for (int i = 0; i < computer.size(); i++)
-            if (!computer.get(i).equals(input.get(i)) && computer.contains(input.get(i))) ball++;
-        return ball;
+    private static boolean replay(String readLine) {
+        if (readLine.equals("1")) return true;
+        return false;
     }
 
-    private static int strike(List<Integer> computer, List<Integer> input) {
-        int strike = 0;
-        for (int i = 0; i < computer.size(); i++)
-            if (computer.get(i).equals(input.get(i))) strike++;
-        return strike;
-    }
     private static void reset() {
         strikeCount = 0;
         ballCount = 0;
@@ -86,4 +64,31 @@ public class Application {
             if (!computer.contains(randomNumber)) computer.add(randomNumber);
         }
     }
+
+    public static List<Integer> valueToList(int value) {
+        List<Integer> list = new ArrayList<>();
+
+        while (value / 10 != 0) {
+            list.add(0, value % 10);
+            value /= 10;
+        }
+        list.add(0, value % 10);
+        return list;
+    }
+
+
+    private static int ball(List<Integer> computer, List<Integer> input) {
+        int ball = 0;
+        for (int i = 0; i < computer.size(); i++)
+            if (!computer.get(i).equals(input.get(i)) && computer.contains(input.get(i))) ball++;
+        return ball;
+    }
+
+    private static int strike(List<Integer> computer, List<Integer> input) {
+        int strike = 0;
+        for (int i = 0; i < computer.size(); i++)
+            if (computer.get(i).equals(input.get(i))) strike++;
+        return strike;
+    }
+
 }
